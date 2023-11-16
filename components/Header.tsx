@@ -21,6 +21,7 @@ import {
 } from "./ui/dropdown-menu";
 
 import { LogOut, Settings, User } from "lucide-react";
+import Image from "next/image";
 
 const Header = () => {
   const { data: sessionData } = useSession();
@@ -29,7 +30,15 @@ const Header = () => {
     <header className="flex flex-col sm:flex-row items-center justify-between p-4 border-b shadow-sm">
       <div className="flex items-center">
         <h1 className="text-xl font-bold">
-          <Link href="/">LeadOwn</Link>
+          <Link href="/">
+            <Image
+              objectFit="contain"
+              src="/leadown-logo.png"
+              alt="LeadOwn Logo"
+              width={150}
+              height={150}
+            />
+          </Link>
         </h1>
       </div>
 
