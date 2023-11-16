@@ -27,7 +27,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={(inter.className, "bg-background text-foreground")}>
+      <body
+        className={
+          (inter.className, "bg-background text-foreground px-4 md:px-24")
+        }
+      >
         <SessionProvider>
           <ThemeProvider
             attribute="class"
@@ -36,7 +40,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Header />
-            <main className="min-h-screen p-8 flex flex-col">{children}</main>
+            <main className="min-h-screen py-8 flex flex-col">{children}</main>
             <Footer />
           </ThemeProvider>
         </SessionProvider>
