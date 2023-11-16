@@ -1,56 +1,58 @@
-import React from "react";
+import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 
 const Home = () => {
+  const sections = [
+    {
+      title: "Create Personal Courses",
+      description:
+        "Craft personalized learning experiences tailored to your unique interests and educational goals.",
+    },
+    {
+      title: "Manage Your Learning Path",
+      description:
+        "Effortlessly navigate through your educational journey with detailed progress tracking and personal achievements.",
+    },
+    {
+      title: "Individualized Learning",
+      description:
+        "Connect with like-minded learners, share insights, and participate in discussions catered to your specific learning path.",
+    },
+    {
+      title: "Empower Your Knowledge",
+      description:
+        "Take command of your educational trajectory and empower your knowledge journey with LeadOwn.",
+    },
+  ];
+
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="p-8 hadow-lg rounded-lg">
-        <h1 className="text-4xl font-extrabold mb-4 text-gray-800">
+    <>
+      <div className="mb-8 text-center w-full md:w-1/2 mx-auto">
+        <h1 className="text-3xl font-extrabold mb-6">
           Welcome to <span className="text-blue-500">LeadOwn</span>
         </h1>
-        <p className=" mb-6">
-          Empower your learning journey with LeadOwn. Customize your path,
-          explore exciting courses, and achieve your educational goals.
+
+        <p className="text-base text-gray-600 dark:text-gray-300">
+          Your ultimate platform for personalized education. Craft courses,
+          manage your learning path, connect with learners, and empower your
+          knowledge journey with LeadOwn.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold mb-2 text-gray-800">
-              Explore Courses
-            </h2>
-            <p className="">
-              Choose from a diverse range of courses tailored to your interests
-              and goals.
-            </p>
-          </div>
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold mb-2 text-gray-800">
-              Track Your Progress
-            </h2>
-            <p className="">
-              Monitor your learning journey with detailed progress tracking and
-              achievements.
-            </p>
-          </div>
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold mb-2 text-gray-800">
-              Engage with Community
-            </h2>
-            <p className="">
-              Connect with fellow learners, share insights, and participate in
-              discussions.
-            </p>
-          </div>
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold mb-2 text-gray-800">
-              Achieve Success
-            </h2>
-            <p className="">
-              Take control of your educational path and achieve success with
-              LeadOwn.
-            </p>
-          </div>
-        </div>
       </div>
-    </div>
+
+      <div className="flex flex-col md:flex-row md:flex-wrap md:justify-center md:gap-8 gap-4">
+        {sections.map((section, index) => (
+          <Card key={index} className="w-full md:w-96 text-center shadow-xl">
+            <CardHeader>
+              <CardTitle className="text-xl font-bold">
+                {section.title}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-gray-600 dark:text-gray-300">
+              {section.description}
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </>
   );
 };
 

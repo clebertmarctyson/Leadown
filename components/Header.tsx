@@ -1,36 +1,32 @@
+"use client";
+
 import Link from "next/link";
 import { ModeToggle } from "./ModeToggle";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
-const menuItems = [
-  {
-    name: "Home",
-    href: "/",
-  },
-  {
-    name: "About",
-    href: "/about",
-  },
-  {
-    name: "Contact",
-    href: "/contact",
-  },
-];
+import { signIn, signOut, useSession } from "next-auth/react";
+import { menuItems } from "@/data/data";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
-const signIn = {
-  user: {
-    name: "John Doe",
-    image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-};
+import { LogOut, Settings, User } from "lucide-react";
 
 const Header = () => {
-  const { user } = signIn;
+  const { data: sessionData } = useSession();
 
   return (
-    <header className="flex flex-col sm:flex-row items-center justify-between p-4 border-b">
+    <header className="flex flex-col sm:flex-row items-center justify-between p-4 border-b shadow-sm">
       <div className="flex items-center">
         <h1 className="text-xl font-bold">
           <Link href="/">LeadOwn</Link>
@@ -46,17 +42,44 @@ const Header = () => {
           ))}
         </ul>
 
-        {user ? (
-          <div className="flex flex-col items-center mt-4 sm:mt-0 sm:ml-auto">
-            <Avatar>
-              <AvatarImage src={user.image} />
-              <AvatarFallback>{user.name.at(0)}</AvatarFallback>
-            </Avatar>
-            <span className="ml-2">{user.name}</span>
+        {sessionData?.user ? (
+          <div className="flex flex-col md:flex-row justify-center items-center gap-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Avatar>
+                  <AvatarImage src={sessionData.user.image || ""} />
+                  <AvatarFallback>
+                    {sessionData.user.name?.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <DropdownMenuItem>
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Profile</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuSub>
+                    <DropdownMenuSubTrigger>
+                      <Settings className="mr-2 h-4 w-4" />
+                      <span>Settings</span>
+                    </DropdownMenuSubTrigger>
+                  </DropdownMenuSub>
+                </DropdownMenuGroup>
+
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => void signOut()}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Log out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         ) : (
-          <Button asChild className="mt-4 sm:mt-0">
-            <Link href="/sign-in">Sign In</Link>
+          <Button size={"sm"} variant={"default"} onClick={() => void signIn()}>
+            Sign In
           </Button>
         )}
 
