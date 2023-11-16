@@ -24,14 +24,16 @@ const AboutPage = () => {
       </div>
 
       <div className="w-full md:w-1/2">
-        <Image
-          width={800}
-          height={400}
-          src="https://via.placeholder.com/800x400" // Replace with your image source
-          alt="LeadOwn Platform"
-          className="rounded-lg shadow-md"
-        />
-        <p className="text-base mt-6 text-gray-600 dark:text-gray-300 leading-loose">
+        <div className="w-full md:w-4/5 mx-auto">
+          <Image
+            width={800}
+            height={300}
+            src="/about.jpg"
+            alt="LeadOwn Platform"
+            className="rounded-lg shadow-md"
+          />
+        </div>
+        <p className="text-base mt-6 text-gray-600 dark:text-gray-300 leading-loose w-full md:w-4/5 mx-auto">
           Our interactive platform fosters a dynamic learning environment,
           enabling users to seamlessly create and explore courses tailored to
           their unique learning styles.

@@ -25,7 +25,7 @@ const Home = () => {
   ];
 
   return (
-    <>
+    <div className="flex flex-col md:flex-row md:flex-wrap md:justify-center md:gap-8 gap-4">
       <div className="mb-8 text-center w-full md:w-1/2 mx-auto">
         <h1 className="text-3xl font-extrabold mb-6">
           Welcome to <span className="text-blue-500">LeadOwn</span>
@@ -52,7 +52,7 @@ const Home = () => {
           </Card>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
