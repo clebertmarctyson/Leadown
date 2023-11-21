@@ -3,10 +3,7 @@ import Image from "next/image";
 /* eslint-disable react/no-unescaped-entities */
 const About = () => {
   return (
-    <section
-      id={"about"}
-      className="min-h-screen flex flex-col md:flex-row md:items-center text-center md:text-left"
-    >
+    <section className="min-h-screen flex flex-col md:flex-row md:items-center text-center md:text-left">
       <div className="w-full md:w-1/2">
         <h1 className="text-3xl font-extrabold mb-6">
           About <span className="text-blue-500">LeadOwn</span>
@@ -34,6 +31,7 @@ const About = () => {
             src="/about.jpg"
             alt="LeadOwn Platform"
             className="rounded-lg shadow-md"
+            priority={true}
           />
         </div>
         <p className="text-base mt-6 text-gray-600 dark:text-gray-300 leading-loose w-full md:w-4/5 mx-auto">

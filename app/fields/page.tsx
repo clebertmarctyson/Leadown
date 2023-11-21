@@ -1,11 +1,8 @@
-import { Field } from "@/types";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { fields } from "@/data/data";
 
 const Fields = async () => {
-  const response = await fetch(`http://localhost:3000/api/fields`);
-  const fields: Field[] = await response.json();
-
   return (
     <div>
       <h1 className="text-3xl font-semibold mb-6">Fields</h1>

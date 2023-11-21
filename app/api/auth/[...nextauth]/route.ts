@@ -9,15 +9,6 @@ const handler = NextAuth({
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET!,
-  callbacks: {
-    session: async ({ session, user }) => {
-      if (session?.user) {
-        session = { ...session, user: { ...session.user, ...user } };
-      }
-
-      return session;
-    },
-  },
 });
 
 export { handler as GET, handler as POST };
