@@ -15,7 +15,7 @@ const Fields = async () => {
       )}
 
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <li className="flex justify-center items-center p-6 border border-dashed rounded-md border-blue-900">
+        <li className="flex justify-center items-center p-6 border border-dashed rounded-md border-blue-400">
           <Link href="/fields/create">
             <Button>Create Field</Button>
           </Link>
@@ -24,15 +24,17 @@ const Fields = async () => {
         {fields.map((field, index) => (
           <li
             key={index}
-            className="p-6 border rounded-md border-blue-800 transition duration-300 hover:shadow-lg"
+            className="p-6 border rounded-md border-blue-500 transition duration-300 shadow-lg"
           >
             <h1 className="text-lg font-semibold mb-2">{field.name}</h1>
 
-            <p className="text-sm mb-2">
+            <p className="text-sm mb-2 italic">
               {field?.courses?.length === 0 ? (
-                <span>No courses available for this field</span>
+                <span className="text-gray-600">
+                  No courses available for this field
+                </span>
               ) : (
-                <span className="italic">
+                <span>
                   {field?.courses?.length === 1
                     ? "1 course available for this field"
                     : `${field?.courses?.length} courses available for this field`}

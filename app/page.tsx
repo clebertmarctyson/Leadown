@@ -35,7 +35,10 @@ const HomePage = () => {
 
       <div className="flex flex-col md:flex-row md:justify-center gap-8 py-8 mt-8">
         {sections.map((section, index) => (
-          <Card key={index} className="w-full md:w-80 text-center shadow-xl">
+          <Card
+            key={index}
+            className="w-full md:w-80 text-center hover:scale-105 transition-transform duration-500"
+          >
             <CardHeader>
               <CardTitle className="text-xl font-bold">
                 {section.title}

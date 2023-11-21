@@ -1,12 +1,12 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto } from "next/font/google";
 import Header from "@/components/Header";
 import SessionProvider from "@/components/SessionProvider";
 import ThemeProvider from "@/components/ThemeProvider";
 import Footer from "@/components/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700", "900"] });
 
 export const metadata: Metadata = {
   applicationName: "Leadown",
@@ -29,7 +29,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={
-          (inter.className, "bg-background text-foreground px-4 md:px-24")
+          (roboto.className, "bg-background text-foreground px-4 md:px-24")
         }
       >
         <SessionProvider>
