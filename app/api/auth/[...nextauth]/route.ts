@@ -3,7 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { PrismaClient, User } from "@prisma/client/edge";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
-export const prisma = new PrismaClient();
+const prisma = new PrismaClient();
 
 const handler = NextAuth({
   adapter: PrismaAdapter(prisma),
