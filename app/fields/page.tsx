@@ -1,8 +1,13 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { fields } from "@/data/data";
+import axios from "axios";
+import { Field } from "@/types";
 
 const Fields = async () => {
+  const { data: fields } = await axios.get<Field[]>(
+    `${process.env.NEXT_PUBLIC_API_URL}/fields`
+  );
+
   return (
     <div>
       <h1 className="text-3xl font-semibold mb-6">Fields</h1>
