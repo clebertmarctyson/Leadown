@@ -18,22 +18,6 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
     apple: "/favicon.ico",
   },
-  openGraph: {
-    title: "Leadown - Forge Your Path, Own Your Knowledge.",
-    description:
-      "Where learning becomes an enriching journey. Our dynamic platform empowers you to shape a unique educational path, unlocking knowledge, personal growth, and success. Join Leadown and explore the limitless possibilities of learning tailored just for you.",
-    url: "https://leadown.vercel.app",
-    siteName: "Leadown",
-    images: [
-      {
-        url: "https://leadown.vercel.app/favicon.ico",
-        width: 1920,
-        height: 1080,
-        alt: "Leadown",
-        type: "image/png",
-      },
-    ],
-  },
 };
 
 export default function RootLayout({
