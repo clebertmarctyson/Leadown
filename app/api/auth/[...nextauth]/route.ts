@@ -1,12 +1,7 @@
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import { PrismaClient, User } from "@prisma/client/edge";
-
-export const prisma = new PrismaClient();
 
 const handler = NextAuth({
-  adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -17,7 +12,7 @@ const handler = NextAuth({
   callbacks: {
     session: async ({ session, user }) => {
       if (session?.user) {
-        session.user = user as User;
+        session.user = user;
       }
 
       return session;
