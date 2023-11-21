@@ -1,9 +1,12 @@
 import Image from "next/image";
 
 /* eslint-disable react/no-unescaped-entities */
-const AboutPage = () => {
+const About = () => {
   return (
-    <div className="mx-auto my-8 flex flex-col md:flex-row gap-16 text-center md:text-left">
+    <section
+      id={"about"}
+      className="min-h-screen flex flex-col md:flex-row md:items-center text-center md:text-left"
+    >
       <div className="w-full md:w-1/2">
         <h1 className="text-3xl font-extrabold mb-6">
           About <span className="text-blue-500">LeadOwn</span>
@@ -39,8 +42,8 @@ const AboutPage = () => {
           their unique learning styles.
         </p>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default AboutPage;
+export default About;

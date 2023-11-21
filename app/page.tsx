@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 
-const Home = () => {
+const HomePage = () => {
   const sections = [
     {
       title: "Create Personal Courses",
@@ -17,17 +17,12 @@ const Home = () => {
       description:
         "Connect with like-minded learners, share insights, and participate in discussions catered to your specific learning path.",
     },
-    {
-      title: "Empower Your Knowledge",
-      description:
-        "Take command of your educational trajectory and empower your knowledge journey with LeadOwn.",
-    },
   ];
 
   return (
-    <div className="flex flex-col md:flex-row md:flex-wrap md:justify-center md:gap-8 gap-4">
-      <div className="mb-8 text-center w-full md:w-1/2 mx-auto">
-        <h1 className="text-3xl font-extrabold mb-6">
+    <section id={"home"} className="min-h-screen flex flex-col">
+      <div className="text-center w-full md:w-1/2 mx-auto mt-8 md:mt-24">
+        <h1 className="text-4xl font-extrabold mb-6">
           Welcome to <span className="text-blue-500">LeadOwn</span>
         </h1>
 
@@ -38,9 +33,9 @@ const Home = () => {
         </p>
       </div>
 
-      <div className="flex flex-col md:flex-row md:flex-wrap md:justify-center md:gap-8 gap-4">
+      <div className="flex flex-col md:flex-row md:justify-center gap-8 py-8 mt-8">
         {sections.map((section, index) => (
-          <Card key={index} className="w-full md:w-96 text-center shadow-xl">
+          <Card key={index} className="w-full md:w-80 text-center shadow-xl">
             <CardHeader>
               <CardTitle className="text-xl font-bold">
                 {section.title}
@@ -52,8 +47,8 @@ const Home = () => {
           </Card>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 
-export default Home;
+export default HomePage;
