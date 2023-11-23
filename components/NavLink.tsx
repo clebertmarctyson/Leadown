@@ -2,17 +2,16 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { DefaultSession } from "next-auth";
+import { useSession } from "next-auth/react";
 
 const NavLink = ({
   href,
   children,
-  session,
 }: {
   href: string;
   children: React.ReactNode;
-  session: DefaultSession;
 }) => {
+  const { data: session } = useSession();
   const pathName = usePathname();
   const isActive = pathName === href;
 

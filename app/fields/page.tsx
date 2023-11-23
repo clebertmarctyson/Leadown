@@ -9,9 +9,6 @@ const Fields = async () => {
     `${process.env.NEXT_PUBLIC_API_URL}/fields`
   );
 
-  // Pause for 3 seconds
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-
   return (
     <div>
       <h1 className="text-3xl font-semibold mb-6">Fields</h1>
@@ -27,7 +24,7 @@ const Fields = async () => {
           </Link>
         </li>
 
-        {fields.map((field) => (
+        {fields.map((field, index) => (
           <FieldItem key={field?.id} field={field} />
         ))}
       </ul>

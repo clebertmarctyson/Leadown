@@ -1,5 +1,5 @@
+import { Session } from "@prisma/client";
 import NavLink from "./NavLink";
-import { DefaultSession } from "next-auth";
 
 const menuItems = [
   {
@@ -16,11 +16,11 @@ const menuItems = [
   },
 ];
 
-const MenuItems = ({ session }: { session: DefaultSession }) => {
+const MenuItems = () => {
   return (
     <ul className="flex items-center gap-4">
       {menuItems.map((item) => (
-        <NavLink key={item.name} href={item.href} session={session}>
+        <NavLink key={item.name} href={item.href}>
           {item.name}
         </NavLink>
       ))}

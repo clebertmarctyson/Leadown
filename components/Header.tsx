@@ -32,13 +32,13 @@ const Header = () => {
       </div>
 
       <nav className="flex flex-col sm:flex-row items-center gap-4 mt-4 sm:mt-0 md:gap-12">
-        <MenuItems session={session!} />
+        <MenuItems />
 
         {session?.user ? (
           <div className="flex flex-col md:flex-row justify-center items-center gap-2">
             <Avatar>
-              <AvatarImage src={session.user.image!} />
-              <AvatarFallback>{session.user.name?.charAt(0)}</AvatarFallback>
+              <AvatarImage src={session?.user.image!} />
+              <AvatarFallback>{session?.user.name?.charAt(0)}</AvatarFallback>
             </Avatar>
 
             <Button
