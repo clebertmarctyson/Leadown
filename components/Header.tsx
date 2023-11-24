@@ -15,7 +15,7 @@ const Header = () => {
   const { data: session } = useSession();
 
   return (
-    <header className="flex flex-col sm:flex-row items-center justify-between p-4 border-b shadow-sm">
+    <header className="flex flex-col lg:flex-row items-center justify-between p-4 border-b shadow-sm">
       <div className="flex items-center">
         <h1 className="text-xl font-bold">
           <Link href="/">
@@ -31,11 +31,11 @@ const Header = () => {
         </h1>
       </div>
 
-      <nav className="flex flex-col sm:flex-row items-center gap-4 mt-4 sm:mt-0 md:gap-12">
+      <nav className="flex flex-col lg:flex-row items-center gap-4 mt-8 lg:mt-0">
         <MenuItems />
 
         {session?.user ? (
-          <div className="flex flex-col md:flex-row justify-center items-center gap-2">
+          <div className="flex flex-col lg:flex-row justify-center items-center gap-2">
             <Avatar>
               <AvatarImage src={session?.user.image!} />
               <AvatarFallback>{session?.user.name?.charAt(0)}</AvatarFallback>

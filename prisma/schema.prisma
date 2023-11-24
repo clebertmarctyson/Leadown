@@ -61,18 +61,28 @@ model Field {
     courses   Course[]
     creatorId String
     creator   User?    @relation(fields: [creatorId], references: [id])
+
+    @@unique([creatorId, slug])
 }
 
 model Course {
-    id     String  @id @default(cuid())
-    name   String
-    slug   String
-    fields Field[]
+    id       String    @id @default(cuid())
+    name     String
+    slug     String
+    fieldId  String
+    field    Field     @relation(fields: [fieldId], references: [id])
+    chapters Chapter[]
+
+    @@unique([fieldId, slug])
 }
 
 model Chapter {
-    id      String @id @default(cuid())
-    title   String
-    content String
-    number  Int
+    id       String @id @default(cuid())
+    title    String
+    content  String @db.Text
+    number   Int
+    courseId String
+    course   Course @relation(fields: [courseId], references: [id])
+
+    @@unique([courseId, title])
 }

@@ -4,7 +4,11 @@ import { NextRequest, NextResponse } from "next/server";
 export const GET = async () => {
   const fields = await prisma.field.findMany({
     include: {
-      courses: true,
+      courses: {
+        include: {
+          chapters: true,
+        },
+      },
       creator: true,
     },
   });
@@ -15,14 +19,15 @@ export const POST = async (request: NextRequest) => {
   const { name, creatorId } = await request.json();
 
   if (!name) {
-    return NextResponse.json({ error: "Name is required" }, { status: 400 });
+    return NextResponse.json("You must provide the name of the field.", {
+      status: 400,
+    });
   }
 
   if (!creatorId) {
-    return NextResponse.json(
-      { error: "CreatorId is required" },
-      { status: 400 }
-    );
+    return NextResponse.json("You must be logged in to create a field.", {
+      status: 400,
+    });
   }
 
   const newField = await prisma.field.create({
@@ -33,5 +38,11 @@ export const POST = async (request: NextRequest) => {
     },
   });
 
-  return NextResponse.json(newField, { status: 201 });
+  return NextResponse.json(
+    {
+      field: newField,
+      message: `Field ${newField.name} has been created successfully`,
+    },
+    { status: 201 }
+  );
 };

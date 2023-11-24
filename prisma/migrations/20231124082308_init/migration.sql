@@ -59,6 +59,7 @@ CREATE TABLE "Course" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
+    "fieldId" TEXT NOT NULL,
 
     CONSTRAINT "Course_pkey" PRIMARY KEY ("id")
 );
@@ -69,14 +70,9 @@ CREATE TABLE "Chapter" (
     "title" TEXT NOT NULL,
     "content" TEXT NOT NULL,
     "number" INTEGER NOT NULL,
+    "courseId" TEXT NOT NULL,
 
     CONSTRAINT "Chapter_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "_CourseToField" (
-    "A" TEXT NOT NULL,
-    "B" TEXT NOT NULL
 );
 
 -- CreateIndex
@@ -95,10 +91,13 @@ CREATE UNIQUE INDEX "VerificationToken_token_key" ON "VerificationToken"("token"
 CREATE UNIQUE INDEX "VerificationToken_identifier_token_key" ON "VerificationToken"("identifier", "token");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "_CourseToField_AB_unique" ON "_CourseToField"("A", "B");
+CREATE UNIQUE INDEX "Field_creatorId_slug_key" ON "Field"("creatorId", "slug");
 
 -- CreateIndex
-CREATE INDEX "_CourseToField_B_index" ON "_CourseToField"("B");
+CREATE UNIQUE INDEX "Course_fieldId_slug_key" ON "Course"("fieldId", "slug");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Chapter_courseId_title_key" ON "Chapter"("courseId", "title");
 
 -- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -110,7 +109,7 @@ ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId"
 ALTER TABLE "Field" ADD CONSTRAINT "Field_creatorId_fkey" FOREIGN KEY ("creatorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "_CourseToField" ADD CONSTRAINT "_CourseToField_A_fkey" FOREIGN KEY ("A") REFERENCES "Course"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Course" ADD CONSTRAINT "Course_fieldId_fkey" FOREIGN KEY ("fieldId") REFERENCES "Field"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "_CourseToField" ADD CONSTRAINT "_CourseToField_B_fkey" FOREIGN KEY ("B") REFERENCES "Field"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Chapter" ADD CONSTRAINT "Chapter_courseId_fkey" FOREIGN KEY ("courseId") REFERENCES "Course"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -1,4 +1,3 @@
-import { Session } from "@prisma/client";
 import NavLink from "./NavLink";
 
 const menuItems = [

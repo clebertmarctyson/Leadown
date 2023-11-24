@@ -6,6 +6,7 @@ import SessionProvider from "@/components/SessionProvider";
 import ThemeProvider from "@/components/ThemeProvider";
 import Footer from "@/components/Footer";
 import ClientProvider from "@/components/ClientProvider";
+import { Toaster } from "@/components/ui/toaster";
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700", "900"] });
 
 export const metadata: Metadata = {
@@ -32,8 +33,8 @@ export default function RootLayout({
           (roboto.className, "bg-background text-foreground px-4 md:px-24")
         }
       >
-        <ClientProvider>
-          <SessionProvider>
+        <SessionProvider>
+          <ClientProvider>
             <ThemeProvider
               attribute="class"
               defaultTheme="system"
@@ -45,9 +46,10 @@ export default function RootLayout({
                 {children}
               </main>
               <Footer />
+              <Toaster key={"toaster"} />
             </ThemeProvider>
-          </SessionProvider>
-        </ClientProvider>
+          </ClientProvider>
+        </SessionProvider>
       </body>
     </html>
   );

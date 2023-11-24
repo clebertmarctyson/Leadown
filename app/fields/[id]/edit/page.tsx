@@ -1,6 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 
+import { useParams } from "next/navigation";
+
 import axios, { AxiosError } from "axios";
 
 import { useToast } from "@/components/ui/use-toast";
@@ -25,7 +27,7 @@ import {
 
 import { useSession } from "next-auth/react";
 
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { queryClient } from "@/components/ClientProvider";
 import { LucideLoader } from "lucide-react";
 import { Field } from "@/types";
@@ -34,7 +36,9 @@ const formSchema = z.object({
   name: z.string().trim().min(1, { message: "Field name is required" }),
 });
 
-const NewFieldForm = () => {
+const EditFieldForm = () => {
+  const { id } = useParams();
+
   const router = useRouter();
   const { toast } = useToast();
   const { data: session } = useSession();
@@ -44,25 +48,49 @@ const NewFieldForm = () => {
     defaultValues: {
       name: "",
     },
+    reValidateMode: "onSubmit",
+  });
+
+  const { data, isLoading: isFieldLoading } = useQuery({
+    queryKey: ["fields", id],
+    queryFn: async () => {
+      const { data: field } = await axios.get<Field>(`/api/fields/${id}`);
+      return field;
+    },
+    onSuccess: (data) => {
+      form.reset({
+        name: data?.name,
+      });
+      queryClient.setQueryData(["fields", data?.id], data);
+    },
+    onError: (error: AxiosError | any) => {
+      toast({
+        title: "Error",
+        description:
+          error instanceof AxiosError ? error?.response?.data : error?.message,
+        variant: "destructive",
+      });
+    },
+    enabled: Boolean(session?.user.id),
   });
 
   const { mutate, isLoading } = useMutation({
-    mutationKey: ["fields"],
-    mutationFn: async (data: z.infer<typeof formSchema>) => {
-      const response = await axios.post("/api/fields", {
-        name: data.name,
+    mutationKey: ["fields", data?.id],
+    mutationFn: async ({ name }: z.infer<typeof formSchema>) => {
+      const response = await axios.patch(`/api/fields/${data?.id}`, {
+        name,
         creatorId: session?.user.id,
       });
       return response.data;
     },
     onSuccess: (data: { field: Field; message: string }) => {
-      queryClient.invalidateQueries(["fields", data?.field]);
+      queryClient.invalidateQueries(["fields", data?.field.id]);
+      router.push(`/fields`);
       toast({
         title: "Success",
         description: data?.message,
         variant: "default",
       });
-      router.push(`/fields`);
     },
     onError: (error: AxiosError | any) => {
       toast({
@@ -77,11 +105,10 @@ const NewFieldForm = () => {
   return (
     <section className="w-full md:w-3/4 lg:w-2/3 p-4 md:p-8 mx-auto flex flex-col">
       <Form {...form}>
-        <h1 className="text-3xl font-semibold mb-4">Create Field</h1>
+        <h1 className="text-3xl font-semibold mb-4">Edit Field</h1>
 
         <FormDescription className="mb-4">
-          Create a new field in your learning journey. This will allow you to
-          customize your courses to fit your needs.
+          Edit the name of the field.
         </FormDescription>
 
         <form
@@ -98,17 +125,30 @@ const NewFieldForm = () => {
                   <Input
                     placeholder="Enter the name of the field you'd like to create"
                     {...field}
+                    disabled={
+                      isLoading ||
+                      isFieldLoading ||
+                      !(session?.user.id === data?.creatorId)
+                    }
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={
+              isLoading ||
+              isFieldLoading ||
+              !(session?.user.id === data?.creatorId)
+            }
+          >
             {isLoading ? (
               <LucideLoader className="w-5 h-5 animate-spin" />
             ) : (
-              <span>Create Field</span>
+              <span>Save Field</span>
             )}
           </Button>
         </form>
@@ -117,4 +157,4 @@ const NewFieldForm = () => {
   );
 };
 
-export default NewFieldForm;
+export default EditFieldForm;
