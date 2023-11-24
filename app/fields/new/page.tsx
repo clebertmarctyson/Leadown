@@ -47,6 +47,7 @@ const NewFieldForm = () => {
         name,
         creatorId: session?.user.id,
       }),
+      cache: "no-store",
     });
 
     if (!response.ok) {

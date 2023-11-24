@@ -1,19 +1,27 @@
 import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
-import axios from "axios";
 import { Field } from "@/types";
+
 import FieldItem from "./FieldItem";
 
 const Fields = async () => {
-  const { data: fields } = await axios.get<Field[]>(
-    `${process.env.NEXT_PUBLIC_API_URL}/fields`
-  );
+  const reponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/fields`, {
+    cache: "no-store",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const fields = (await reponse.json()) as Field[];
+
+  await new Promise((resolve) => setTimeout(resolve, 3000));
 
   return (
     <div>
       <h1 className="text-3xl font-semibold mb-6">Fields</h1>
 
-      {fields.length === 0 && (
+      {fields?.length === 0 && (
         <p className="text-gray-600 mb-6">No fields available.</p>
       )}
 
@@ -24,7 +32,7 @@ const Fields = async () => {
           </Link>
         </li>
 
-        {fields.map((field, index) => (
+        {fields?.map((field) => (
           <FieldItem key={field?.id} field={field} />
         ))}
       </ul>

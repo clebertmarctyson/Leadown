@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import SessionProvider from "@/components/SessionProvider";
 import ThemeProvider from "@/components/ThemeProvider";
 import Footer from "@/components/Footer";
+import ClientProvider from "@/components/ClientProvider";
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700", "900"] });
 
 export const metadata: Metadata = {
@@ -31,18 +32,22 @@ export default function RootLayout({
           (roboto.className, "bg-background text-foreground px-4 md:px-24")
         }
       >
-        <SessionProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Header />
-            <main className="min-h-screen py-8 flex flex-col">{children}</main>
-            <Footer />
-          </ThemeProvider>
-        </SessionProvider>
+        <ClientProvider>
+          <SessionProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Header />
+              <main className="min-h-screen py-8 flex flex-col">
+                {children}
+              </main>
+              <Footer />
+            </ThemeProvider>
+          </SessionProvider>
+        </ClientProvider>
       </body>
     </html>
   );
