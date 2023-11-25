@@ -1,12 +1,12 @@
 import "./globals.css";
+
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
+
 import Header from "@/components/Header";
-import SessionProvider from "@/components/SessionProvider";
-import ThemeProvider from "@/components/ThemeProvider";
 import Footer from "@/components/Footer";
-import ClientProvider from "@/components/ClientProvider";
-import { Toaster } from "@/components/ui/toaster";
+import Providers from "@/components/Providers";
+
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700", "900"] });
 
 export const metadata: Metadata = {
@@ -21,11 +21,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
+interface RootLayoutProps {
   children: React.ReactNode;
-}) {
+}
+
+const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -33,24 +33,14 @@ export default function RootLayout({
           (roboto.className, "bg-background text-foreground px-4 md:px-24")
         }
       >
-        <SessionProvider>
-          <ClientProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <Header />
-              <main className="min-h-screen py-8 flex flex-col">
-                {children}
-              </main>
-              <Footer />
-              <Toaster key={"toaster"} />
-            </ThemeProvider>
-          </ClientProvider>
-        </SessionProvider>
+        <Providers>
+          <Header />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

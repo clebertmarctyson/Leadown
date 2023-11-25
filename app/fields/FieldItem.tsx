@@ -2,7 +2,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Field } from "@/types";
 import { EditIcon, LucideLoader, TrashIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -26,6 +25,7 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 import { AxiosError } from "axios";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Field } from "@/types";
 
 const FieldItem = ({ field }: { field: Field }) => {
   const { data: session } = useSession();

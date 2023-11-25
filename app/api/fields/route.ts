@@ -30,6 +30,19 @@ export const POST = async (request: NextRequest) => {
     });
   }
 
+  const field = await prisma.field.findFirst({
+    where: {
+      AND: {
+        slug: name.toLowerCase().replace(/\s+/g, "-").trim(),
+        creatorId,
+      },
+    },
+  });
+
+  if (field) {
+    return NextResponse.json("Field already exists.", { status: 409 });
+  }
+
   const newField = await prisma.field.create({
     data: {
       creatorId,
